@@ -81,8 +81,8 @@
     <!-- <img src="Assets/IMG_2617.jpeg" /> -->
   </div>
   <div class="paper image">
-    <p>How can be </p>
-    <p> someone so cute ❤️ </p>
+    <p>How can someone </p>
+    <p> be so cute ❤️ </p>
     <img src="Assets/IMG_2615.jpeg" />
   </div>
   <div class="paper red">
@@ -97,6 +97,13 @@
     <p class="p1">Drag the papers to move! ❤️</p>
   </div>
   <script>
+     document.body.addEventListener("click", function() {
+        let audio = document.getElementById("background-music");
+        if (audio.paused) {
+            audio.play();
+        }
+    });
+    
 let highestZ = 1;
 class Paper {
   holdingPaper = false;
