@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>saro-rosy ❤️</title>
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Short+Stack&amp;family=Homemade+Apple&amp;display=swap'>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-image: url("https://www.psdgraphics.com/wp-content/uploads/2022/01/white-math-paper-texture.jpg");
+      background-position: center center;
+      overflow: hidden;
+      touch-action: none;
+    }
+    .paper {
+        background-color: darkgray;
+      /* background-image: url("https://i0.wp.com/textures.world/wp-content/uploads/2018/10/2-Millimeter-Paper-Background-copy.jpg?ssl=1"); */
+      background-size: 500px;
+      background-position: center center;
+      padding: 20px 100px;
+      transform: rotateZ(-5deg);
+      box-shadow: 1px 15px 20px 0px rgba(0,0,0,0.5);
+      position: absolute;
+      cursor: grab;
+      user-select: none;
+    }
+    .paper.heart {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    .paper.heart::after {
+      content: "";
+      background-image: url('https://cdn.pixabay.com/photo/2016/03/31/19/25/cartoon-1294994__340.png');
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: 150px;
+      background-position: center center;
+      background-repeat: no-repeat;
+      opacity: 0.6;
+    }
+    img {
+      max-height: 200px;
+      width: 100%;
+      user-select: none;
+    }
+    p {
+      font-family: 'Zeyada';
+      font-size: 50px;
+      color: rgb(0,0,100);
+      opacity: 0.75;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+  <audio id="background-music" loop>
+    <source src="Assets/music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  
+  <div class="paper heart"></div>
+  <div class="paper image">
+    <p> and I like you 😍 </p>
+    <img src="Assets/IMG_2618.jpeg" />
+  </div>
+  <div class="paper image">
+    <p> Consider this as an application <br/> 
+        to hear your voice <br/> tell me if there is more requirements 😍 </p>
+    <!-- <img src="Assets/IMG_2617.jpeg" /> -->
+  </div>
+  <div class="paper image">
+    <p>How can be </p>
+    <p> someone so cute ❤️ </p>
+    <img src="Assets/IMG_2615.jpeg" />
+  </div>
+  <div class="paper red">
+    <p class="p1"> and My Favorite</p>
+    <p class="p2">Person 😍</p>
+  </div>
+  <div class="paper">
+    <p class="p1">First of All You are Beautiful and </p>
+    <p class="p1">Amazing <span style="color: red !important;">❤️</span></p>
+  </div>
+  <div class="paper">
+    <p class="p1">Drag the papers to move! ❤️</p>
+  </div>
+  <script>
+    document.body.addEventListener("click", function() {
+        let audio = document.getElementById("background-music");
+        if (audio.paused) {
+            audio.play();
+        }
+    });
+    
+    let highestZ = 1;
+    class Paper {
+      constructor(paper) {
+        this.paper = paper;
+        this.holding = false;
+        this.startX = 0;
+        this.startY = 0;
+        this.offsetX = 0;
+        this.offsetY = 0;
+        this.init();
+      }
+      init() {
+        this.paper.addEventListener("mousedown", (e) => this.startDrag(e));
+        this.paper.addEventListener("touchstart", (e) => this.startDrag(e.touches[0]));
+        document.addEventListener("mousemove", (e) => this.drag(e));
+        document.addEventListener("touchmove", (e) => this.drag(e.touches[0]));
+        document.addEventListener("mouseup", () => this.endDrag());
+        document.addEventListener("touchend", () => this.endDrag());
+      }
+      startDrag(e) {
+        this.holding = true;
+        this.startX = e.clientX;
+        this.startY = e.clientY;
+        this.offsetX = this.paper.offsetLeft;
+        this.offsetY = this.paper.offsetTop;
+        this.paper.style.zIndex = highestZ++;
+      }
+      drag(e) {
+        if (!this.holding) return;
+        let moveX = e.clientX - this.startX;
+        let moveY = e.clientY - this.startY;
+        this.paper.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      }
+      endDrag() {
+        this.holding = false;
+      }
+    }
+    document.querySelectorAll(".paper").forEach(paper => new Paper(paper));
+  </script>
+</body>
+</html>
